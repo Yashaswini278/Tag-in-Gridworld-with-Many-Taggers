@@ -85,13 +85,13 @@ def plot_average_rewards(rewards, num_episodes=1000):
     plt.show()
 
 # Example usage
-env = GridWorldEnv()
-env.reset()
+#env = GridWorldEnv()
+#env.reset()
 
-print("Running TD Learning...")
-td_v, td_policy = td_learning(env)
-visualize_policy(env, td_policy)
+#print("Running TD Learning...")
+#td_v, td_policy = td_learning(env)
+#visualize_policy(env, td_policy)
 
-print("Running Episodes...")
-rewards = run_episodes(env, td_policy, num_episodes=1000)
-plot_average_rewards(rewards)
+#print("Running Episodes...")
+#rewards = run_episodes(env, td_policy, num_episodes=1000)
+#plot_average_rewards(rewards)

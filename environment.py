@@ -6,6 +6,7 @@ class GridWorldEnv:
         self.k = k  # Number of taggers
         
         self.action_space = 8  # 8 directions for runner
+        self.action_labels = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West']
         
         self.runner_pos = None
         self.tagger_positions = None
@@ -70,7 +71,9 @@ class GridWorldEnv:
     
     # used for simulating environment 
     def sample_action(self):
-        return np.random.randint(self.action_space)
+        action = np.random.randint(self.action_space)
+        label = self.action_labels[action]
+        return action, label
 
     def get_action_space(self):
         return self.action_space

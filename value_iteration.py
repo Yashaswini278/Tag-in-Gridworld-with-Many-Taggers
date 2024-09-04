@@ -71,18 +71,18 @@ def plot_average_rewards(rewards, num_episodes=1000):
     plt.show()
 
 # Define environment
-env = GridWorldEnv()
-env.reset()
+#env = GridWorldEnv()
+#env.reset()
 
 # Run value iteration algorithm
-print("Running Value Iteration...")
-vi_value, vi_policy = value_iteration(env)
+#print("Running Value Iteration...")
+#vi_value, vi_policy = value_iteration(env)
 
 # Visualize policy learned 
 #visualize_policy(env, vi_policy)
 
 # Run across episodes and plot average rewards 
-print("Running Episodes...")
-rewards = run_episodes(env, vi_policy, num_episodes=1000)
+#print("Running Episodes...")
+#rewards = run_episodes(env, vi_policy, num_episodes=1000)
 #plot_average_rewards(rewards)
 
