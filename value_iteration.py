@@ -79,10 +79,10 @@ print("Running Value Iteration...")
 vi_value, vi_policy = value_iteration(env)
 
 # Visualize policy learned 
-visualize_policy(env, vi_policy)
+#visualize_policy(env, vi_policy)
 
 # Run across episodes and plot average rewards 
 print("Running Episodes...")
 rewards = run_episodes(env, vi_policy, num_episodes=1000)
-plot_average_rewards(rewards)
+#plot_average_rewards(rewards)
 
