@@ -8,7 +8,7 @@ from run import run_episodes, plot_average_rewards
 
 def main(args):
     # Initialize environment
-    env = GridWorldEnv()
+    env = GridWorldEnv(args.n, args.k)
     state = env.reset()
 
     if args.experiment == "visualize":
@@ -22,8 +22,6 @@ def main(args):
                 break
     
     if args.experiment == "vi": 
-        env = GridWorldEnv()
-        env.reset()
 
         # Run value iteration algorithm
         print("Running Value Iteration...")
@@ -40,8 +38,6 @@ def main(args):
         plot_average_rewards(rewards)
 
     if args.experiment == "td": 
-        env = GridWorldEnv()
-        env.reset()
 
         # Run value iteration algorithm
         print("Running Temporal Difference Learning...")
@@ -59,6 +55,10 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="GridWorld Environment Simulation and Visualization")
+
+    parser.add_argument("--n", type=int, default=15, help="grid size")
+    parser.add_argument("--k", type=int, default=2, help="number of taggers")
+
     parser.add_argument("--experiment", type=str, choices=["visualize", "vi", "td", "compare"], 
                         help="Experiment to run: visualize (with simulation), value_iteration, or td_learning")
     parser.add_argument("--steps", type=int, default=5, help="Number of steps to simulate")
