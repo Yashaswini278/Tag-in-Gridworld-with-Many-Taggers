@@ -19,7 +19,7 @@ def td_learning(env, episodes=100, alpha=0.5, gamma=0.99, epsilon=0.1, lambd=1):
         while not done:
             if np.random.random() < epsilon:
                 # Exploration: choose a random action
-                action = env.sample_action()  
+                action, label = env.sample_action()  
             else:
                 # Choose the action with the highest state-value
                 action = np.argmax([V_T[state[0], state[1]] + gamma * V_T[state[0], state[1]]])
@@ -48,6 +48,7 @@ def td_learning(env, episodes=100, alpha=0.5, gamma=0.99, epsilon=0.1, lambd=1):
 
     # choose policy based on the values calculated
     policy = np.zeros((env.n, env.n), dtype=int)
+    initial_policy = policy.copy()
     for i in range(env.n):
         for j in range(env.n):
             action_values = []
@@ -58,40 +59,8 @@ def td_learning(env, episodes=100, alpha=0.5, gamma=0.99, epsilon=0.1, lambd=1):
                 action_values.append(reward + gamma * V[next_state[0], next_state[1]])
             # choose action with highest value 
             policy[i, j] = np.argmax(action_values)
+            if(i == env.n//2 and j == env.n//2):
+                intermediate_policy = policy.copy()
     
-    return V, policy
+    return V, initial_policy, intermediate_policy, policy
 
-def run_episodes(env, policy, num_episodes=1000):
-    rewards = []
-    for episode in range(num_episodes):
-        env.reset()
-        total_reward = 0
-        done = False
-        while not done:
-            runner_pos = env.runner_pos
-            action = policy[runner_pos[0], runner_pos[1]]
-            _, reward, done = env.step(action)
-            total_reward += reward
-        rewards.append(total_reward)
-    return rewards
-
-def plot_average_rewards(rewards, num_episodes=1000):
-    cumulative_rewards = np.cumsum(rewards)
-    average_rewards = cumulative_rewards / (np.arange(num_episodes) + 1)
-    plt.plot(average_rewards)
-    plt.xlabel("Episodes")
-    plt.ylabel("Average Reward")
-    plt.title("Average Reward Across Episodes")
-    plt.show()
-
-# Example usage
-#env = GridWorldEnv()
-#env.reset()
-
-#print("Running TD Learning...")
-#td_v, td_policy = td_learning(env)
-#visualize_policy(env, td_policy)
-
-#print("Running Episodes...")
-#rewards = run_episodes(env, td_policy, num_episodes=1000)
-#plot_average_rewards(rewards)

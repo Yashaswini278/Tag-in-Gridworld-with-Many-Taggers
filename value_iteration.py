@@ -33,6 +33,7 @@ def value_iteration(env, gamma=0.99, theta=1e-8):
     
     # choose policy based on the values calculated
     policy = np.zeros((env.n, env.n), dtype=int)
+    initial_policy = policy.copy()
     for i in range(env.n):
         for j in range(env.n):
             action_values = []
@@ -42,47 +43,10 @@ def value_iteration(env, gamma=0.99, theta=1e-8):
                 next_state, reward, done = env.step(action)
                 action_values.append(reward + gamma * V[next_state[0], next_state[1]])
             # choose action with highest value 
-            policy[i, j] = np.argmax(action_values) 
+            policy[i, j] = np.argmax(action_values)
+            if(i == env.n//2 and j == env.n//2):
+                intermediate_policy = policy.copy()
     
-    return V, policy
+    return V, initial_policy, intermediate_policy, policy
 
-def run_episodes(env, policy, num_episodes=1000):
-    # to calculate reward per episode
-    rewards = []
-    for episode in range(num_episodes):
-        env.reset()
-        total_reward = 0
-        done = False
-        while not done:
-            runner_pos = env.runner_pos
-            action = policy[runner_pos[0], runner_pos[1]]
-            _, reward, done = env.step(action)
-            total_reward += reward
-        rewards.append(total_reward)
-    return rewards
-
-def plot_average_rewards(rewards, num_episodes=1000):
-    cumulative_rewards = np.cumsum(rewards)
-    average_rewards = cumulative_rewards / (np.arange(num_episodes) + 1)
-    plt.plot(average_rewards)
-    plt.xlabel("Episodes")
-    plt.ylabel("Average Reward")
-    plt.title("Average Reward Across Episodes")
-    plt.show()
-
-# Define environment
-#env = GridWorldEnv()
-#env.reset()
-
-# Run value iteration algorithm
-#print("Running Value Iteration...")
-#vi_value, vi_policy = value_iteration(env)
-
-# Visualize policy learned 
-#visualize_policy(env, vi_policy)
-
-# Run across episodes and plot average rewards 
-#print("Running Episodes...")
-#rewards = run_episodes(env, vi_policy, num_episodes=1000)
-#plot_average_rewards(rewards)
 
