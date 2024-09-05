@@ -11,8 +11,8 @@ def visualize_grid_world(env, title=None):
         ax.axvline(i, color='lightgray', linewidth=1)
     
     # Draw runner
-    runner_y, runner_x = env.runner_pos
-    ax.add_artist(plt.Circle((runner_x + 0.5, env.n - runner_y - 0.5), 0.4, color='blue', zorder=2))
+    runner_x, runner_y = env.runner_pos
+    ax.add_artist(plt.Circle((runner_x + 0.5, runner_y + 0.5), 0.4, color='blue', zorder=2))
     ax.text(runner_x + 0.5, env.n - runner_y - 0.5, 'R', ha='center', va='center', color='white', fontweight='bold', zorder=3)
     
     # Draw taggers
@@ -26,7 +26,7 @@ def visualize_grid_world(env, title=None):
     ax.set_xticks(np.arange(0.5, env.n, 1))
     ax.set_yticks(np.arange(0.5, env.n, 1))
     ax.set_xticklabels(range(env.n))
-    ax.set_yticklabels(range(env.n-1, -1, -1))
+    ax.set_yticklabels(range(env.n))
     
     # Add title and additional information
     if title:
@@ -53,7 +53,7 @@ def visualize_policy(env, policy, title="Policy Visualization"):
         ax.axvline(i, color='lightgray', linewidth=1)
     
     # Define action directions
-    directions = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1)]
+    directions = [(-1,0), (-1,1), (0,1), (1,1), (1,0), (1,-1), (0,-1), (-1,-1)]
     
     # Draw policy arrows
     for i in range(env.n):
@@ -82,20 +82,3 @@ def visualize_policy(env, policy, title="Policy Visualization"):
     
     plt.tight_layout()
     plt.show()
-
-# Example usage
-#env = GridWorldEnv()
-#state = env.reset()
-#visualize_grid_world(env, title="Initial State")
-
-# Simulate a few steps
-#for _ in range(5):
-#    action = env.sample_action()
-#    state, reward, done, _ = env.step(action)
-#    visualize_grid_world(env, title=f"After Action {action}")
-#    if done:
-#        break
-
-# Example policy visualization
-#random_policy = np.random.randint(0, 8, size=(env.n, env.n))
-#visualize_policy(env, random_policy, title="Random Policy")

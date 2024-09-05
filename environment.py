@@ -6,7 +6,7 @@ class GridWorldEnv:
         self.k = k  # Number of taggers
         
         self.action_space = 8  # 8 directions for runner
-        self.action_labels = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West']
+        self.action_labels = ['West', 'North-West', 'North', 'North-East', 'East', 'South-East', 'South', 'South-West']
         
         self.runner_pos = None
         self.tagger_positions = None
@@ -55,14 +55,14 @@ class GridWorldEnv:
         return np.concatenate([self.runner_pos] + [tagger_pos for tagger_pos in self.tagger_positions])
     
     def _move_runner(self, action):
-        # 8 directions: [N, NE, E, SE, S, SW, W, NW] - 2 steps
+        # 8 directions - 2 steps
         directions = [(-2,0), (-2,2), (0,2), (2,2), (2,0), (2,-2), (0,-2), (-2,-2)]
         move = directions[action]
         self.runner_pos = np.clip(self.runner_pos + move, 0, self.n - 1) # dont move if <0 or >=n 
 
     
     def _move_taggers(self):
-        # 4 directions: [N, E, S, W]
+        # 4 directions
         directions = [(-1,0), (0,1), (1,0), (0,-1)]
         # move all the taggers randomly 
         for i in range(self.k):

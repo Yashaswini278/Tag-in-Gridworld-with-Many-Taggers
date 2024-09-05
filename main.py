@@ -11,7 +11,7 @@ def main(args):
     env = GridWorldEnv(args.n, args.k)
     state = env.reset()
 
-    if args.experiment == "visualize":
+    if args.exp == "visualize":
         # Visualize and simulate the environment
         visualize_grid_world(env, title="Initial State")
         for _ in range(args.steps):
@@ -21,23 +21,24 @@ def main(args):
             if done:
                 break
     
-    if args.experiment == "vi": 
+    if args.exp == "vi": 
 
         # Run value iteration algorithm
         print("Running Value Iteration...")
         vi_value, vi_initial_policy, vi_intermediate_policy, vi_policy = value_iteration(env, args.gamma, args.theta)
 
+        print(vi_policy)
         # Visualize policy learned 
-        visualize_policy(env, vi_initial_policy)
-        visualize_policy(env, vi_intermediate_policy)
-        visualize_policy(env, vi_policy)
+        #visualize_policy(env, vi_initial_policy)
+        #visualize_policy(env, vi_intermediate_policy)
+        #visualize_policy(env, vi_policy)
 
         # Run across episodes and plot average rewards 
         print("Running Episodes...")
         rewards = run_episodes(env, vi_policy, num_episodes=1000)
         plot_average_rewards(rewards)
 
-    if args.experiment == "td": 
+    if args.exp == "td": 
 
         # Run value iteration algorithm
         print("Running Temporal Difference Learning...")
@@ -59,7 +60,7 @@ if __name__ == "__main__":
     parser.add_argument("--n", type=int, default=15, help="grid size")
     parser.add_argument("--k", type=int, default=2, help="number of taggers")
 
-    parser.add_argument("--experiment", type=str, choices=["visualize", "vi", "td", "compare"], 
+    parser.add_argument("--exp", type=str, choices=["visualize", "vi", "td", "compare"], 
                         help="Experiment to run: visualize (with simulation), value_iteration, or td_learning")
     parser.add_argument("--steps", type=int, default=5, help="Number of steps to simulate")
 
