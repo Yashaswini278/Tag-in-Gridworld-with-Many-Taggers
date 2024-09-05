@@ -27,16 +27,19 @@ def main(args):
         print("Running Value Iteration...")
         vi_value, vi_initial_policy, vi_intermediate_policy, vi_policy = value_iteration(env, args.gamma, args.theta)
 
-        print(vi_policy)
+        #print(vi_policy)
         # Visualize policy learned 
-        #visualize_policy(env, vi_initial_policy)
-        #visualize_policy(env, vi_intermediate_policy)
-        #visualize_policy(env, vi_policy)
+        visualize_policy(env, vi_initial_policy, 'Initial Policy VI')
+        visualize_policy(env, vi_intermediate_policy, 'Intermediate Policy VI')
+        visualize_policy(env, vi_policy, 'Final Policy VI')
 
         # Run across episodes and plot average rewards 
-        print("Running Episodes...")
-        rewards = run_episodes(env, vi_policy, num_episodes=1000)
-        plot_average_rewards(rewards)
+        #print("Running Episodes...")
+        #rewards = run_episodes(env, vi_initial_policy, num_episodes=1000)
+        #plot_average_rewards(rewards, title = 'Average Rewards vs Episodes for Initial Policy VI')
+
+        #rewards = run_episodes(env, vi_policy, num_episodes=1000)
+        #plot_average_rewards(rewards, title = 'Average Rewards vs Episodes for Final Policy VI')
 
     if args.exp == "td": 
 
@@ -45,9 +48,9 @@ def main(args):
         td_value, td_initial_policy, td_intermediate_policy, td_policy = td_learning(env, args.episodes, args.alpha, args.gamma, args.epsilon, args.lamda)
 
         # Visualize policy learned 
-        visualize_policy(env, td_initial_policy)
-        visualize_policy(env, td_intermediate_policy)
-        visualize_policy(env, td_policy)
+        visualize_policy(env, td_initial_policy, 'Initial Policy TD Learning')
+        visualize_policy(env, td_intermediate_policy, 'Intermediate Policy TD Learning')
+        visualize_policy(env, td_policy, 'Final Policy TD Leanring')
 
         # Run across episodes and plot average rewards 
         print("Running Episodes...")

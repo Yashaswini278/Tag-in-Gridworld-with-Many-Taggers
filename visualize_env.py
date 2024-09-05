@@ -13,12 +13,12 @@ def visualize_grid_world(env, title=None):
     # Draw runner
     runner_x, runner_y = env.runner_pos
     ax.add_artist(plt.Circle((runner_x + 0.5, runner_y + 0.5), 0.4, color='blue', zorder=2))
-    ax.text(runner_x + 0.5, env.n - runner_y - 0.5, 'R', ha='center', va='center', color='white', fontweight='bold', zorder=3)
+    ax.text(runner_x + 0.5, runner_y + 0.5, 'R', ha='center', va='center', color='white', fontweight='bold', zorder=3)
     
     # Draw taggers
-    for i, (tagger_y, tagger_x) in enumerate(env.tagger_positions):
-        ax.add_artist(plt.Circle((tagger_x + 0.5, env.n - tagger_y - 0.5), 0.3, color='red', zorder=2))
-        ax.text(tagger_x + 0.5, env.n - tagger_y - 0.5, f'T{i+1}', ha='center', va='center', color='white', fontweight='bold', zorder=3)
+    for i, (tagger_x, tagger_y) in enumerate(env.tagger_positions):
+        ax.add_artist(plt.Circle((tagger_x + 0.5, tagger_y + 0.5), 0.3, color='red', zorder=2))
+        ax.text(tagger_x + 0.5, tagger_y + 0.5, f'T{i+1}', ha='center', va='center', color='white', fontweight='bold', zorder=3)
     
     # Set plot limits and labels
     ax.set_xlim(0, env.n)
@@ -44,7 +44,7 @@ def visualize_grid_world(env, title=None):
     plt.tight_layout()
     plt.show()
 
-def visualize_policy(env, policy, title="Policy Visualization"):
+def visualize_policy(env, policy, title=None):
     fig, ax = plt.subplots(figsize=(12, 10))
     
     # Draw grid

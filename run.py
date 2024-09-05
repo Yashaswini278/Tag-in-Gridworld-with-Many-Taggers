@@ -15,11 +15,11 @@ def run_episodes(env, policy, num_episodes=1000):
         rewards.append(total_reward)
     return rewards
 
-def plot_average_rewards(rewards, num_episodes=1000):
+def plot_average_rewards(rewards, num_episodes=1000, title = None):
     cumulative_rewards = np.cumsum(rewards)
     average_rewards = cumulative_rewards / (np.arange(num_episodes) + 1)
     plt.plot(average_rewards)
     plt.xlabel("Episodes")
     plt.ylabel("Average Reward")
-    plt.title("Average Reward Across Episodes")
+    plt.title(title)
     plt.show()

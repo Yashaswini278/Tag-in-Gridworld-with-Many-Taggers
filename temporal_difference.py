@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from environment import GridWorldEnv
 from visualize_env import visualize_policy
 
-def td_learning(env, episodes=100, alpha=0.5, gamma=0.99, epsilon=0.1, lambd=1):
+def td_learning(env, episodes=500, alpha=0.3, gamma=0.99, epsilon=0.1, lambd=0.8):
     # Initialize state-value function V(s)
     V = np.zeros((env.n, env.n))  
     
