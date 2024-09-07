@@ -27,19 +27,10 @@ def main(args):
         print("Running Value Iteration...")
         vi_value, vi_initial_policy, vi_intermediate_policy, vi_policy = value_iteration(env, args.gamma, args.theta)
 
-        #print(vi_policy)
         # Visualize policy learned 
         visualize_policy(env, vi_initial_policy, 'Initial Policy VI')
         visualize_policy(env, vi_intermediate_policy, 'Intermediate Policy VI')
         visualize_policy(env, vi_policy, 'Final Policy VI')
-
-        # Run across episodes and plot average rewards 
-        #print("Running Episodes...")
-        #rewards = run_episodes(env, vi_initial_policy, num_episodes=1000)
-        #plot_average_rewards(rewards, title = 'Average Rewards vs Episodes for Initial Policy VI')
-
-        #rewards = run_episodes(env, vi_policy, num_episodes=1000)
-        #plot_average_rewards(rewards, title = 'Average Rewards vs Episodes for Final Policy VI')
 
     if args.exp == "td": 
 
@@ -51,11 +42,6 @@ def main(args):
         visualize_policy(env, td_initial_policy, 'Initial Policy TD Learning')
         visualize_policy(env, td_intermediate_policy, 'Intermediate Policy TD Learning')
         visualize_policy(env, td_policy, 'Final Policy TD Leanring')
-
-        # Run across episodes and plot average rewards 
-        print("Running Episodes...")
-        rewards = run_episodes(env, td_policy, num_episodes=1000)
-        plot_average_rewards(rewards)
 
     if args.exp == "compare": 
         env = GridWorldEnv()
@@ -72,6 +58,9 @@ def main(args):
         td_rewards = run_episodes(env, td_policy, args.numepisodes)
 
         plot_average_rewards(vi_rewards, td_rewards, args.numepisodes)
+
+        visualize_policy(env, vi_policy, 'Policy VI')
+        visualize_policy(env, td_policy, 'Policy TD Learning')
 
 
 

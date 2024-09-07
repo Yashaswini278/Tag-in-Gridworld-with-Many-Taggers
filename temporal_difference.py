@@ -3,8 +3,9 @@ import matplotlib.pyplot as plt
 from environment import GridWorldEnv
 from visualize_env import visualize_policy
 
-def td_learning(env, episodes=500, alpha=0.3, gamma=0.99, epsilon=0.1, lambd=0.8):
+def td_learning(env, episodes=500, alpha=0.3, gamma=0.99, epsilon=0.1, lambd=0.9):
     # Initialize state-value function V(s)
+    decay_rate = 0.9
     V = np.zeros((env.n, env.n))  
     
     for T in range(episodes):
@@ -41,10 +42,11 @@ def td_learning(env, episodes=500, alpha=0.3, gamma=0.99, epsilon=0.1, lambd=0.8
                     E[i, j] *= lambd  
             
             # Move to the next state
-            state = next_state  
+            state = next_state 
 
         # Update V for the next episode 
         V = V_T  
+        epsilon *= decay_rate
 
     # choose policy based on the values calculated
     policy = np.zeros((env.n, env.n), dtype=int)
