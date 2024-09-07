@@ -16,7 +16,7 @@ Arguments :
 <br>
 
 Example :
-  ``` python main.py --n 15 --k 2 --exp visualize ```
+  ``` python main.py --n 15 --k 2 --exp visualize --steps 5```
 
 ### Running value iteration algorithm and visualzing initial, intermediate and final policies 
 Arguments : 
