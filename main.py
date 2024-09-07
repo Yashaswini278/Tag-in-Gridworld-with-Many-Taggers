@@ -57,6 +57,24 @@ def main(args):
         rewards = run_episodes(env, td_policy, num_episodes=1000)
         plot_average_rewards(rewards)
 
+    if args.exp == "compare": 
+        env = GridWorldEnv()
+        state = env.reset()
+
+        # Value Iteration
+        print("Running Value Iteration")
+        vi_V, _, _, vi_policy = value_iteration(env)
+        vi_rewards = run_episodes(env, vi_policy, args.numepisodes)
+        
+        # TD Learning
+        print("Running Temporal Difference Learning")
+        td_V, _, _, td_policy = td_learning(env, episodes=args.episodes)
+        td_rewards = run_episodes(env, td_policy, args.numepisodes)
+
+        plot_average_rewards(vi_rewards, td_rewards, args.numepisodes)
+
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="GridWorld Environment Simulation and Visualization")
 
@@ -65,6 +83,7 @@ if __name__ == "__main__":
 
     parser.add_argument("--exp", type=str, choices=["visualize", "vi", "td", "compare"], 
                         help="Experiment to run: visualize (with simulation), value_iteration, or td_learning")
+    
     parser.add_argument("--steps", type=int, default=5, help="Number of steps to simulate")
 
     parser.add_argument("--gamma", type=float, default=0.99, help="gamma for value iteration or td learning")
@@ -74,6 +93,8 @@ if __name__ == "__main__":
     parser.add_argument("--alpha", type=float, default=0.5, help="alpha for td learning")
     parser.add_argument("--epsilon", type=float, default=0.1, help="epsilon for td learning")
     parser.add_argument("--lamda", type=float, default=0.9, help="lamda for td learning")
+
+    parser.add_argument("--numepisodes", type=int, default=200, help="number of episodes for comparing the algorithms")
 
     args = parser.parse_args()
     main(args)
