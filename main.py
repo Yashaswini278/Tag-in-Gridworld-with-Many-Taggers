@@ -5,6 +5,7 @@ from value_iteration import *
 from temporal_difference import *
 from visualize_env import visualize_grid_world, visualize_policy 
 from run import run_episodes, plot_average_rewards
+import time 
 
 def main(args):
     # Initialize environment
@@ -24,8 +25,11 @@ def main(args):
     if args.exp == "vi": 
 
         # Run value iteration algorithm
+        start = time.time()
         print("Running Value Iteration...")
         vi_value, vi_initial_policy, vi_intermediate_policy, vi_policy = value_iteration(env, args.gamma, args.theta)
+        end = time.time()
+        print(f"Time required = {end-start}")
 
         # Visualize policy learned 
         visualize_policy(env, vi_initial_policy, 'Initial Policy VI')
@@ -35,9 +39,12 @@ def main(args):
     if args.exp == "td": 
 
         # Run value iteration algorithm
+        start = time.time()
         print("Running Temporal Difference Learning...")
         td_value, td_initial_policy, td_intermediate_policy, td_policy = td_learning(env, args.episodes, args.alpha, args.gamma, args.epsilon, args.lamda)
-
+        end = time.time()
+        print(f"Time required = {end-start}")
+        
         # Visualize policy learned 
         visualize_policy(env, td_initial_policy, 'Initial Policy TD Learning')
         visualize_policy(env, td_intermediate_policy, 'Intermediate Policy TD Learning')
@@ -78,12 +85,12 @@ if __name__ == "__main__":
     parser.add_argument("--gamma", type=float, default=0.99, help="gamma for value iteration or td learning")
     parser.add_argument("--theta", type=float, default=1e-8, help="theta for value iteration")
 
-    parser.add_argument("--episodes", type=int, default=100, help="number of episodes for td learning")
+    parser.add_argument("--episodes", type=int, default=500, help="number of episodes for td learning")
     parser.add_argument("--alpha", type=float, default=0.5, help="alpha for td learning")
     parser.add_argument("--epsilon", type=float, default=0.1, help="epsilon for td learning")
     parser.add_argument("--lamda", type=float, default=0.9, help="lamda for td learning")
 
-    parser.add_argument("--numepisodes", type=int, default=200, help="number of episodes for comparing the algorithms")
+    parser.add_argument("--numepisodes", type=int, default=1000, help="number of episodes for comparing the algorithms")
 
     args = parser.parse_args()
     main(args)
