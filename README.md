@@ -75,5 +75,15 @@ Example :
   or
   <br>
   ``` python main.py --exp compare ```
-  
+
+## Bonus - Max Grid Size (n) and Number of taggers (k) values for the algorithms 
+For Value Iteration algorithm, max n = 30 , k = 4 for 5 minutes time-limit.
+<br> 
+``` python main.py --n 30 --k 4 --exp vi ```
+<br>
+
+For Temporal Difference Learning algorithm, max n = 90 , k = 4 for 5 minutes time-limit.
+<br> 
+``` python main.py --n 90 --k 4 --exp td ```
+
   
