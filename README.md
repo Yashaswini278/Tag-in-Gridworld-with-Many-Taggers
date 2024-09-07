@@ -84,6 +84,6 @@ For Value Iteration algorithm, max n = 30 , k = 4 for 5 minutes time-limit.
 
 For Temporal Difference Learning algorithm, max n = 90 , k = 4 for 5 minutes time-limit.
 <br> 
-``` python main.py --n 90 --k 4 --exp td ```
+``` python main.py --n 80 --k 4 --exp td ```
 
   
